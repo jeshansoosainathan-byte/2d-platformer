@@ -5,7 +5,9 @@ public class Camera : MonoBehaviour
     public Rigidbody2D target;
     public SpriteRenderer targetRenderer;
     public float lookAheadOffset;
-    public float lerpValue = 0.5f;
+
+    [Range(0f,1f)]
+    public float lookAheadSpeed = 0.5f;
 
     void Update()
     {
@@ -17,12 +19,15 @@ public class Camera : MonoBehaviour
 
         newPos.z = this.transform.position.z;
 
- 
+    float offsetX = isFacingLeft ? -lookAheadOffset : lookAheadOffset;
+
+        newPos.z = this.transform.position.z;
+
+        newPos.x += offsetX;
 
 
-
-         
-        this.transform.position = newPos;
+        Vector3 newpos2 = Vector3.Lerp(this.transform.position, newPos, lookAheadSpeed * Time.deltaTime);
+        this.transform.position = newpos2;
 
         
 
