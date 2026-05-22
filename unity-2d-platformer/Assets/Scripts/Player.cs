@@ -104,6 +104,9 @@ public class Player : MonoBehaviour
 
             animator.SetFloat("movespeedx", Mathf.Abs(moveX));
 
+
+           
+
         }
 
 
