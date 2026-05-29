@@ -17,9 +17,6 @@ public class MovingPlatform : MonoBehaviour
     private Sprite defaultSprite = null;
     public Sprite lockedSprite = null;
 
-
-
-
     void FixedUpdate()
     {
 

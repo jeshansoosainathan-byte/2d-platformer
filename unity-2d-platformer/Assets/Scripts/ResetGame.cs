@@ -10,20 +10,6 @@ public class ResetGame : MonoBehaviour
     {
 
         //If r is pressed this frame
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            //Get Current Scene
-
-           Scene scene = SceneManager.GetActiveScene();
-
-
-            //reset scene
-
-            SceneManager.LoadScene(scene.buildIndex);
-
-
-
-
-        }
+    
     }
 }
