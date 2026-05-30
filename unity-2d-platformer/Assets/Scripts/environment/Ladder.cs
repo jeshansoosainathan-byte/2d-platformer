@@ -18,6 +18,8 @@ public class Ladder : MonoBehaviour, IInteractable
     public void OnEnable()
     {
 
+
+
         InteractAction = InputSystem.actions.FindAction("Interact");
    
 
@@ -29,6 +31,8 @@ public class Ladder : MonoBehaviour, IInteractable
     {
        if (interactor.CompareTag("Player"))
         {
+
+
             Player player = interactor.GetComponent<Player>();
 
             player.isClimbing = true;
@@ -48,7 +52,7 @@ public class Ladder : MonoBehaviour, IInteractable
             Player player = other.gameObject.GetComponent<Player>();
             if (player.isInteracting)
             {
-                Debug.Log("Interact Key!");
+       
                 player.isClimbing = true;
             }
        
@@ -56,6 +60,24 @@ public class Ladder : MonoBehaviour, IInteractable
 
         }
 
+    }
+
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player.isInteracting)
+            {
+
+            }
+
+
+
+        }
     }
 
 
