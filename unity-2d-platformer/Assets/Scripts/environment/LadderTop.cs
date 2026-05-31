@@ -16,7 +16,7 @@ public class LadderTop : MonoBehaviour
             {
 
                 collision.gameObject.transform.SetPositionAndRotation(teleportBlock.position, teleportBlock.rotation);
-             
+                player.StopClimbing();
             }
 
         }

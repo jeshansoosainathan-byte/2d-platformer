@@ -133,7 +133,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.8, y: 1}
+    oldSize: {x: 1.75, y: 0.625}
     newSize: {x: 2.8, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -205,3 +205,5 @@ MonoBehaviour:
   waypoints: []
   currentWaypointIndex: 0
   moveSpeed: 1
+  isLocked: 1
+  lockedSprite: {fileID: 8725250176431541611, guid: 95a8d18710c483e46b27f74d7ea39306, type: 3}

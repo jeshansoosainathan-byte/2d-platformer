@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Ladder : MonoBehaviour, IInteractable
+public class Ladder : MonoBehaviour, IInteractable, IClimable
 {
 
     public InputActionAsset inputActions;
@@ -36,62 +36,16 @@ public class Ladder : MonoBehaviour, IInteractable
             Player player = interactor.GetComponent<Player>();
 
             player.isClimbing = true;
-
-
-
-        }
-    }
-
-    public void OnTriggerStay2D(Collider2D other)
-    {
-
-        if (other.gameObject.CompareTag("Player"))
-        {
-            
-
-            Player player = other.gameObject.GetComponent<Player>();
-            if (player.isInteracting)
-            {
-       
-                player.isClimbing = true;
-            }
-       
-        
-
-        }
-
-    }
-
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-
-
-            Player player = collision.gameObject.GetComponent<Player>();
-            if (player.isInteracting)
-            {
-
-            }
-
+            player.spriteRenderer.sprite = player.climbSprite;
+            Debug.Log("Interacted!");
 
 
         }
     }
 
+ 
+    
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
   
     

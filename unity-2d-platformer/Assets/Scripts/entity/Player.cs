@@ -12,13 +12,14 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     [Header("Player Move Parameters")]
-    public float move_speed = 5f;
+    public float default_speed = 5f;
+    public float powerup_speed = 7.5f;
     public float jumpStrength = 10f;
     public float maxJumpTime = 0.30f;
     public float climb_speed = 1.0f;
     public float fallScale = -10;
     public float defaultGravity = 1;
-
+    public float move_speed = 5f;
     private bool isJumping = false;
     public float maxCoyoteTime = 0.100f; //seconds
 
@@ -67,12 +68,17 @@ public class Player : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction InteractAction;
+    
 
 
     public bool isInteracting = false;
 
     public bool isClimbing = false;
 
+
+    private int powerupTimer = 0;
+
+    public bool onClimeable = false;
 
     [Header("Sprites")]
     public Sprite climbSprite;
@@ -82,49 +88,113 @@ public class Player : MonoBehaviour
     public GameObject deathScreen;
 
 
-    void Awake()
-    {
-         
+      
 
+    public void powerUp()
+    {
+
+        powerupTimer = 5000;
+        move_speed = powerup_speed;
 
     }
-
-
-
-
-
-
-
 
     //Interact Key
-    void interact()
+
+    public void OnTriggerStay2D(UnityEngine.Collider2D collision)
     {
-        
+        if (isInteracting)
+        {
+
+          
+            IInteractable interactable = collision.gameObject.GetComponent<IInteractable>();
+
+            if (interactable != null)
+            {
+              
+                interactable.interact(this.gameObject);
+
+            } 
+
+
+        }
+
+        if (isClimbing)
+        {
+
+            IClimable climable = collision.gameObject.GetComponent<IClimable>();
+
+            if (climable != null)
+            {
+
+                onClimeable = true;
+
+            }
+
+        }
 
 
     }
+
+
+
+
+
 
     private void Update()
     {
         isInteracting = InteractAction.IsPressed();
         isJumping = jumpAction.IsPressed();
+
+
+      
+
+
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        IClimable climable = collision.gameObject.GetComponent<IClimable>();
+
+        if (climable != null)
+        {
+
+            onClimeable = false;
+
+        }
+
+
     }
 
 
-   
-
     void FixedUpdate()
     {
-  
+        float vertical = moveAction.ReadValue<Vector2>().y;
+
+
+        if (vertical != 0)
+        {
+           
+            if (onClimeable)
+            {
+                isClimbing = true;
+
+
+            }
+
+        }
+
+
 
         if (isDead)
         {
             deathTimer++;
 
-             if (deathTimer >= 50)
-            {
 
-                deathScreen.SetActive(true);
+            deathScreen.SetActive(true);
+             if (deathTimer >= 100)
+            {
+           
+                SceneManager.LoadScene("PlayAgain");
 
 
             }
@@ -133,7 +203,24 @@ public class Player : MonoBehaviour
 
 
         }
-     
+
+
+        if (powerupTimer > 0)
+        {
+
+            powerupTimer--;
+
+            if (powerupTimer == 0)
+            {
+
+                move_speed = default_speed;
+
+
+            }
+
+
+        }
+
         horizontal = moveAction.ReadValue<Vector2>().x;
 
         animator.SetFloat("move_speed", Mathf.Abs(horizontal));
@@ -141,16 +228,52 @@ public class Player : MonoBehaviour
 
 
         //Climbing Code
+        if (isClimbing)
+        {
 
-       
+
+
+
+            if (!onClimeable)
+            {
+
+                StopClimbing();
+            }
+            else
+            {
+                body.constraints |= RigidbodyConstraints2D.FreezePositionX;
+
+               
+
+                body.gravityScale = 0;
+                float force = vertical * climb_speed;
+
+                body.linearVelocityY = force;
+
+               
+
+                if (force == 0)
+                {
+                    animator.speed = 0;
+                    spriteRenderer.sprite = climbSprite;
+                } else
+                {
+                    animator.SetBool("isClimbing", true);
+                    animator.speed = 1;
+                }
+
+            }
+
+        }
+
 
         if (horizontal != 0)
         {
-             
-
-
-                
+ 
             
+
+
+
             float force = horizontal * move_speed;
             bool isFacingLeft = horizontal < 0;
             
@@ -225,7 +348,7 @@ public class Player : MonoBehaviour
         if (jumpTimeRemaining > 0)
         {
 
-            if (isJumping)
+            if (isJumping && !isClimbing)
             {
                 body.linearVelocityY = jumpStrength;
 
@@ -259,7 +382,17 @@ public class Player : MonoBehaviour
 
     }
 
+    public void StopClimbing()
+    {
+        onClimeable = false;
+        isClimbing = false;
+        body.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+        body.gravityScale = defaultGravity;
+        animator.speed = 1;
 
+        animator.SetBool("isClimbing", false);
+
+    }
 
     private void OnValidate()
     {
@@ -305,12 +438,11 @@ public class Player : MonoBehaviour
     }
     public void OnEnable()
     {
-
+        
         moveAction = InputSystem.actions.FindAction("Move");
         InteractAction = InputSystem.actions.FindAction("Interact");
         jumpAction = InputSystem.actions.FindAction("Jump");
-
-
+        
 
     }
 
