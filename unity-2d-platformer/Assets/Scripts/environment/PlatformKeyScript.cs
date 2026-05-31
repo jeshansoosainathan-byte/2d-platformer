@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class PlatformKeyScript : MonoBehaviour
@@ -14,10 +15,10 @@ public class PlatformKeyScript : MonoBehaviour
         
     }
 
+    //On trigger, increase key count and destroy object
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        //See if collider object is tagged as Player
+ 
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();

@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ public class ResetGame : MonoBehaviour
     public InputActionAsset inputActions;
     private InputAction resetAction;
 
-    // Update is called once per frame
+    // Resets game when reset key is pressed
     void Update()
     {
         if (resetAction.IsPressed())
@@ -18,7 +19,7 @@ public class ResetGame : MonoBehaviour
 
 
         }
-        //If r is pressed this frame
+  
     
     }
 

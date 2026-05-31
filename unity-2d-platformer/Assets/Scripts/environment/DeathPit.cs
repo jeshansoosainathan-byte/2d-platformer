@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class DeathPit : MonoBehaviour
@@ -14,6 +15,7 @@ public class DeathPit : MonoBehaviour
         
     }
 
+    //On triggered, kill player
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")) {

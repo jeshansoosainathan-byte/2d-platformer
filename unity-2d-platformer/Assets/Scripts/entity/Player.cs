@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -98,8 +99,7 @@ public class Player : MonoBehaviour
 
     }
 
-    //Interact Key
-
+    //Checks if interacting, makes sure player is on a climeable while climbing
     public void OnTriggerStay2D(UnityEngine.Collider2D collision)
     {
         if (isInteracting)
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
 
 
 
-
+    //Checks for input per frame
     private void Update()
     {
         isInteracting = InteractAction.IsPressed();
@@ -151,6 +151,8 @@ public class Player : MonoBehaviour
 
     }
 
+
+    //Turns off climeable on exiting climeable object
     public void OnTriggerExit2D(Collider2D collision)
     {
         IClimable climable = collision.gameObject.GetComponent<IClimable>();
@@ -158,14 +160,15 @@ public class Player : MonoBehaviour
         if (climable != null)
         {
 
-            onClimeable = false;
+            
+            StopClimbing();
 
         }
 
 
     }
 
-
+    //Climbing, Ground and Jump movement
     void FixedUpdate()
     {
         float vertical = moveAction.ReadValue<Vector2>().y;

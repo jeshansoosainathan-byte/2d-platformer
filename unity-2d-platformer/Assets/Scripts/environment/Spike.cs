@@ -1,8 +1,9 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // On collide, kill player, destroy object
     public void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
 

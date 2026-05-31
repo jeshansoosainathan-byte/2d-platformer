@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class LadderTop : MonoBehaviour
@@ -5,7 +6,7 @@ public class LadderTop : MonoBehaviour
 
     public Transform teleportBlock;
 
-
+    //Once player reaches boxcollider, teleport to given position and stop climbing.
     private void OnTriggerEnter2D(Collider2D collision)
     {
 

@@ -1,12 +1,13 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Ladder : MonoBehaviour, IInteractable, IClimable
 {
 
-    public InputActionAsset inputActions;
-    private InputAction InteractAction;
+  
 
+    //Unused - returns hover text for interactable
     public string getHoverText(GameObject interactor)
     {
 
@@ -15,18 +16,9 @@ public class Ladder : MonoBehaviour, IInteractable, IClimable
         return "INTERACT to Climb";
     }
 
-    public void OnEnable()
-    {
+     
 
-
-
-        InteractAction = InputSystem.actions.FindAction("Interact");
-   
-
-
-
-    }
-
+    //Player starts climbing when interacted with
     public void interact(GameObject interactor)
     {
        if (interactor.CompareTag("Player"))

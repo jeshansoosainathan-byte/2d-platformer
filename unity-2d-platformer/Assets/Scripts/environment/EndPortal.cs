@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class EndPortal : MonoBehaviour
 
 
 
+    //Teleport to given scene
     public void OnTriggerEnter2D(Collider2D collision)
     {
 

@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ public class UIManager : MonoBehaviour
         
     }
 
+    //Show keys on the UI
   public  void UpdateUI()
     {
 

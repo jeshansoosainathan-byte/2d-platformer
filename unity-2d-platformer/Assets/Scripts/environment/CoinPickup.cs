@@ -1,3 +1,4 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class CoinPickup : MonoBehaviour
@@ -14,6 +15,7 @@ public class CoinPickup : MonoBehaviour
         
     }
 
+    //Grants player +1 point on trigger and destroys coin
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -23,7 +25,7 @@ public class CoinPickup : MonoBehaviour
 
 
             player.score += 1;
-            Debug.Log("Score: " + player.score);
+             
             Destroy(this.gameObject);
      
 

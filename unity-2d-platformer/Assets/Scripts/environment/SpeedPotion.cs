@@ -1,7 +1,10 @@
+//Jeshan Soosainathan - 000924893
 using UnityEngine;
 
 public class SpeedPotion : MonoBehaviour
 {
+
+    //On triggered, powerup player, increasing speed.
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -11,7 +14,7 @@ public class SpeedPotion : MonoBehaviour
 
             player.powerUp();
  
-            Debug.Log("Power Up!");
+     
             Destroy(this.gameObject);
 
 
